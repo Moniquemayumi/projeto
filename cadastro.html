@@ -28,13 +28,7 @@
     <main class="container">
         <div class="form-container">
             <h1 class="form-title">Criar Conta</h1>
-            
-            {% if erro %}
-            <div class="error-message">
-                {{ erro }}
-            </div>
-            {% endif %}
-            
+    
             <form method="POST" action="/cadastro">
                 <div class="form-group">
                     <label for="nome" class="form-label">Nome completo:</label>
@@ -58,7 +52,10 @@
                     <select id="area" name="area" class="form-select" required>
                         <option value="">Selecione sua área...</option>
                         {% for area in areas %}
-                        <option value="{{ area }}">{{ area }}</option>
+                        <option value="{{ area }}"> area </option>
+                        <option value="{{ area }}"> area </option>]
+                        <option value="{{ area }}"> area </option>
+                        <option value="{{ area }}"> area </option>
                         {% endfor %}
                     </select>
                     <p class="form-help">Esta informação será usada para filtrar denúncias por área</p>
@@ -83,4 +80,5 @@
         </div>
     </footer>
 </body>
+
 </html>
