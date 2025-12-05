@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Denúncias</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        header {
+            background: linear-gradient(135deg, #8a2be2, #ff69b4);
+            color: white;
+            padding: 30px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background-color: rgba(255,255,255,0.2);
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background-color: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 30px;
+        }
+        
+        .btn-nova {
+            background-color: #ff6b6b !important;
+            font-weight: bold;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .moral-stat { color: #ff6b6b; }
+        .sexual-stat { color: #8a2be2; }
+        .salarial-stat { color: #4ecdc4; }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: white;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #8a2be2, #ff69b4);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            margin: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .denuncias {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .denuncia-item {
+            border-left: 5px solid #8a2be2;
+            padding: 25px;
+            margin: 25px 0;
+            background-color: #f8f9fa;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .tipo {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .moral { background-color: #ff6b6b; }
+        .sexual { background-color: #8a2be2; }
+        .salarial { background-color: #4ecdc4; }
+        
+        .anonimo {
+            display: inline-block;
+            background-color: #6c757d;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        .no-denuncias {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .welcome-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <h1>🏛️ Plataforma de Denúncias</h1>
+                    <p>Um espaço seguro para mulheres denunciarem assédio no trabalho</p>
+                </div>
+                
+                <nav>
+                    <ul>
+                        <li><a href="/">🏠 Início</a></li>
+                        
+                        {% if usuario %}
+                            <!-- SE ESTÁ LOGADO -->
+                            <li><a href="/nova_denuncia" class="btn-nova">✍️ Nova Denúncia</a></li>
+                            <li><a href="/minhas_denuncias">📝 Minhas Denúncias</a></li>
+                            <li>
+                                <div class="user-info">
+                                    <span>👋 {{ usuario.nome }}</span>
+                                    <a href="/logout" style="background-color: #6c757d; padding: 5px 15px; font-size: 14px;">
+                                        Sair
+                                    </a>
+                                </div>
+                            </li>
+                        {% else %}
+                            <!-- SE NÃO ESTÁ LOGADO -->
+                            <li><a href="/login">🔐 Login</a></li>
+                            <li><a href="/cadastro">👤 Cadastre-se</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        {% if usuario %}
+        <div class="welcome-message">
+            <h3>👋 Bem-vinda de volta, {{ usuario.nome }}!</h3>
+            <p>Você está logada e pode fazer novas denúncias.</p>
+        </div>
+        {% endif %}
+        
+        <!-- Estatísticas -->
+        <div class="stats">
+            <div class="stat-card">
+                <h3>📊 Total de Denúncias</h3>
+                <div class="stat-number">{{ total_denuncias }}</div>
+                <p>Relatos registrados</p>
+            </div>
+            
+            <div class="stat-card">
+                <h3>🤕 Assédio Moral</h3>
+                <div class="stat-number moral-stat">{{ contagem_moral }}</div>
+                <p>Casos reportados</p>
+            </div>
+            
+            <div class="stat-card">
+                <h3>🚫 Assédio Sexual</h3>
+                <div class="stat-number sexual-stat">{{ contagem_sexual }}</div>
+                <p>Casos reportados</p>
+            </div>
+            
+            <div class="stat-card">
+                <h3>💰 Discriminação Salarial</h3>
+                <div class="stat-number salarial-stat">{{ contagem_salarial }}</div>
+                <p>Casos reportados</p>
+            </div>
+        </div>
+        
+        <!-- Chamada para ação -->
+        <section class="hero">
+            <h2>🎗️ Sua Voz Importa</h2>
+            <p style="font-size: 18px; margin: 20px 0; color: #666; max-width: 800px; margin: 20px auto;">
+                Esta plataforma foi criada para que mulheres possam compartilhar seus relatos 
+                de assédio no ambiente de trabalho de forma segura.
+            </p>
+            
+            <div style="margin-top: 30px;">
+                {% if usuario %}
+                    <a href="/nova_denuncia" class="btn">✍️ Fazer Nova Denúncia</a>
+                    <a href="/minhas_denuncias" class="btn" style="background: linear-gradient(135deg, #4ecdc4, #44a08d);">
+                        📝 Ver Minhas Denúncias
+                    </a>
+                {% else %}
+                    <a href="/login" class="btn">✍️ Fazer uma Denúncia</a>
+                    <a href="/cadastro" class="btn" style="background: linear-gradient(135deg, #4ecdc4, #44a08d);">
+                        👤 Criar Minha Conta
+                    </a>
+                {% endif %}
+            </div>
+        </section>
+        
+        <!-- Lista de denúncias -->
+        <section class="denuncias">
+            <h2 style="margin-bottom: 30px; color: #333;">📢 Todas as Denúncias Públicas</h2>
+            
+            {% if denuncias %}
+                {% for denuncia in denuncias %}
+                <div class="denuncia-item">
+                    <div>
+                        <span class="tipo {{ denuncia.tipo }}">
+                            {% if denuncia.tipo == 'moral' %}
+                            🤕 Assédio Moral
+                            {% elif denuncia.tipo == 'sexual' %}
+                            🚫 Assédio Sexual
+                            {% else %}
+                            💰 Diferença Salarial
+                            {% endif %}
+                        </span>
+                        
+                        {% if denuncia.anonima == 'sim' %}
+                        <span class="anonimo">👤 Anônimo</span>
+                        {% endif %}
+                    </div>
+                    
+                    <h3 style="margin: 15px 0; color: #333;">{{ denuncia.titulo }}</h3>
+                    <p style="color: #555; line-height: 1.6;">{{ denuncia.descricao }}</p>
+                    
+                    <p style="color: #888; font-size: 14px; margin-top: 15px;">
+                        📅 Denúncia pública
+                    </p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-denuncias">
+                    <h3>📭 Ainda não há denúncias publicadas</h3>
+                    <p style="margin: 15px 0;">
+                        Seja a primeira a compartilhar sua experiência!
+                    </p>
+                    <a href="/login" class="btn" style="background: #6c757d; padding: 12px 30px; font-size: 16px;">
+                        👉 Fazer Primeira Denúncia
+                    </a>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+    
+    <footer style="text-align: center; padding: 30px; color: #666; margin-top: 50px;">
+        <p>© 2025 Plataforma de Denúncias - Todas as denúncias são confidenciais e protegidas</p>
+        <p style="font-size: 14px; margin-top: 10px;">
+            💜 Espaço seguro criado por mulheres para mulheres
+        </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Denúncias</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial; background-color: #f8f9fa; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        
+        header {
+            background: linear-gradient(135deg, #8a2be2, #ff69b4);
+            color: white;
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .page-title {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .denuncia-item {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #8a2be2;
+        }
+        
+        .tipo {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .moral { background-color: #ff6b6b; }
+        .sexual { background-color: #8a2be2; }
+        .salarial { background-color: #4ecdc4; }
+        
+        .anonimo-badge {
+            background-color: #6c757d;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #8a2be2, #ff69b4);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            margin: 10px;
+        }
+        
+        .btn-voltar {
+            background: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>📝 Minhas Denúncias</h1>
+                <nav>
+                    <ul>
+                        <li><a href="/">🏠 Voltar para Início</a></li>
+                        <li><a href="/nova_denuncia">✍️ Nova Denúncia</a></li>
+                        <li><a href="/logout">🚪 Sair</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="page-title">
+            <h2>👋 Olá, {{ usuario.nome }}!</h2>
+            <p>Aqui estão todas as suas denúncias</p>
+        </div>
+        
+        {% if denuncias %}
+            {% for denuncia in denuncias %}
+            <div class="denuncia-item">
+                <div>
+                    <span class="tipo {{ denuncia.tipo }}">
+                        {% if denuncia.tipo == 'moral' %}
+                        🤕 Assédio Moral
+                        {% elif denuncia.tipo == 'sexual' %}
+                        🚫 Assédio Sexual
+                        {% else %}
+                        💰 Diferença Salarial
+                        {% endif %}
+                    </span>
+                    
+                    {% if denuncia.anonima == 'sim' %}
+                    <span class="anonimo-badge">👤 Publicada como Anônimo</span>
+                    {% else %}
+                    <span class="anonimo-badge" style="background-color: #4ecdc4;">
+                        👤 Publicada com seu nome
+                    </span>
+                    {% endif %}
+                </div>
+                
+                <h3 style="margin: 15px 0;">{{ denuncia.titulo }}</h3>
+                <p style="color: #555; line-height: 1.6;">{{ denuncia.descricao }}</p>
+                
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
+                    <p style="color: #888; font-size: 14px;">
+                        📅 Sua denúncia está pública para todas as usuárias
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <h3>📭 Você ainda não fez nenhuma denúncia</h3>
+                <p style="margin: 20px 0;">
+                    Suas denúncias aparecerão aqui quando você fizer a primeira.
+                </p>
+                <a href="/nova_denuncia" class="btn">✍️ Fazer Primeira Denúncia</a>
+                <a href="/" class="btn btn-voltar">🏠 Voltar para Início</a>
+            </div>
+        {% endif %}
+    </main>
+</body>
+</html>
