@@ -10,6 +10,7 @@ class Usuario(db.Model):
     nome = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     senha = db.Column(db.String(20), nullable=False)
+    area = db.Column(db.String(50)) 
 
 class Denuncia(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,9 +18,12 @@ class Denuncia(db.Model):
     titulo = db.Column(db.String(100), nullable=False)
     descricao = db.Column(db.String(500), nullable=False)
     anonima = db.Column(db.String(10), nullable=False)
+    empresa = db.Column(db.String(100)) 
+    area_usuario = db.Column(db.String(50))
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
 
 usuario_logado = None
+
 
 @app.route('/')
 def pagina_principal():
@@ -32,10 +36,27 @@ def pagina_principal():
     contagem_sexual = Denuncia.query.filter_by(tipo='sexual').count()
     contagem_salarial = Denuncia.query.filter_by(tipo='salarial').count()
     
-
     usuario = None
     if usuario_logado is not None:
         usuario = Usuario.query.get(usuario_logado)
+    todos_usuarios = Usuario.query.all()
+    
+    areas = [
+        'Tecnologia',
+        'Jurídico',
+        'Saúde',
+        'Educação',
+        'Administrativo',
+        'Marketing',
+        'Vendas',
+        'Financeiro',
+        'Recursos Humanos',
+        'Engenharia',
+        'Design',
+        'Comunicação',
+        'Outros'
+    ]
+    filtro_area = ''
     
     return render_template('index.html', 
                          denuncias=denuncias,
@@ -43,33 +64,91 @@ def pagina_principal():
                          contagem_moral=contagem_moral,
                          contagem_sexual=contagem_sexual,
                          contagem_salarial=contagem_salarial,
-                         usuario=usuario)
+                         usuario=usuario,
+                         areas=areas,
+                         filtro_area=filtro_area,
+                         todos_usuarios=todos_usuarios)
 
+@app.route('/area/<area_nome>')
+def filtrar_por_area(area_nome):
+    global usuario_logado
+    denuncias = Denuncia.query.filter_by(area_usuario=area_nome).all()
+    total_denuncias = len(denuncias)
+    contagem_moral = Denuncia.query.filter_by(tipo='moral', area_usuario=area_nome).count()
+    contagem_sexual = Denuncia.query.filter_by(tipo='sexual', area_usuario=area_nome).count()
+    contagem_salarial = Denuncia.query.filter_by(tipo='salarial', area_usuario=area_nome).count()
+    usuario = None
+    if usuario_logado is not None:
+        usuario = Usuario.query.get(usuario_logado)
+    todos_usuarios = Usuario.query.all()
+
+    areas = [
+        'Tecnologia',
+        'Jurídico',
+        'Saúde',
+        'Educação',
+        'Administrativo',
+        'Marketing',
+        'Vendas',
+        'Financeiro',
+        'Recursos Humanos',
+        'Engenharia',
+        'Design',
+        'Comunicação',
+        'Outros'
+    ]
+    
+    return render_template('index.html', denuncias=denuncias,
+                         total_denuncias=total_denuncias,
+                         contagem_moral=contagem_moral,
+                         contagem_sexual=contagem_sexual,
+                         contagem_salarial=contagem_salarial,
+                         usuario=usuario,
+                         areas=areas,
+                         filtro_area=area_nome,
+                         todos_usuarios=todos_usuarios)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     global usuario_logado
     
+    areas = [
+        'Tecnologia',
+        'Jurídico',
+        'Saúde',
+        'Educação',
+        'Administrativo',
+        'Marketing',
+        'Vendas',
+        'Financeiro',
+        'Recursos Humanos',
+        'Engenharia',
+        'Design',
+        'Comunicação',
+        'Outros'
+    ]
+    
     if request.method == 'POST':
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
+        area = request.form['area']
         
         if len(nome) < 2:
-            return render_template('cadastro.html', erro='Nome muito curto!')
+            return render_template('cadastro.html', erro='Nome muito curto!', areas=areas)
         
         if '@' not in email:
-            return render_template('cadastro.html', erro='Email inválido!')
+            return render_template('cadastro.html', erro='Email inválido!', areas=areas)
         
         if len(senha) < 4:
-            return render_template('cadastro.html', erro='Senha muito curta!')
+            return render_template('cadastro.html', erro='Senha muito curta!', areas=areas)
         
         usuario_existente = Usuario.query.filter_by(email=email).first()
         if usuario_existente:
-            return render_template('cadastro.html', erro='Email já cadastrado!')
+            return render_template('cadastro.html', erro='Email já cadastrado!', areas=areas)
         
         try:
-            novo_usuario = Usuario(nome=nome, email=email, senha=senha)
+            novo_usuario = Usuario(nome=nome, email=email, senha=senha, area=area)
             db.session.add(novo_usuario)
             db.session.commit()
             
@@ -77,9 +156,9 @@ def cadastro():
             return redirect('/')
             
         except:
-            return render_template('cadastro.html', erro='Erro ao cadastrar!')
+            return render_template('cadastro.html', erro='Erro ao cadastrar!', areas=areas)
     
-    return render_template('cadastro.html')
+    return render_template('cadastro.html', areas=areas)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -112,21 +191,29 @@ def nova_denuncia():
     if usuario_logado is None:
         return redirect('/login')
     
+    usuario = Usuario.query.get(usuario_logado)
+    
     if request.method == 'POST':
         tipo = request.form['tipo']
         titulo = request.form['titulo']
         descricao = request.form['descricao']
+        empresa = request.form['empresa']
         anonima = request.form.get('anonima', 'nao')
         
         if not titulo or not descricao:
-            return render_template('nova_denuncia.html', erro='Preencha todos os campos!')
+            return render_template('nova_denuncia.html', erro='Preencha todos os campos obrigatórios!', usuario=usuario)
+        
+        if not empresa:
+            empresa = 'Não informada'
         
         try:
             nova = Denuncia(
                 tipo=tipo,
                 titulo=titulo,
                 descricao=descricao,
+                empresa=empresa,
                 anonima=anonima,
+                area_usuario=usuario.area,
                 usuario_id=usuario_logado
             )
             
@@ -136,9 +223,9 @@ def nova_denuncia():
             return redirect('/')
             
         except:
-            return render_template('nova_denuncia.html', erro='Erro ao criar denúncia!')
+            return render_template('nova_denuncia.html', erro='Erro ao criar denúncia!', usuario=usuario)
     
-    return render_template('nova_denuncia.html')
+    return render_template('nova_denuncia.html', usuario=usuario)
 
 @app.route('/minhas_denuncias')
 def minhas_denuncias():
@@ -154,9 +241,7 @@ def minhas_denuncias():
     
     minhas_denuncias = Denuncia.query.filter_by(usuario_id=usuario.id).all()
     
-    return render_template('minhas_denuncias.html', 
-                         usuario=usuario, 
-                         denuncias=minhas_denuncias)
+    return render_template('minhas_denuncias.html', usuario=usuario, denuncias=minhas_denuncias)
 
 if __name__ == '__main__':
     with app.app_context():
