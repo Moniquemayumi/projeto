@@ -1,68 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar - SARA</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <title>Login</title>
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <div class="header-content">
-                <div>
-                    <h1 class="site-title">SARA</h1>
-                    <p class="site-subtitle">Plataforma de denúncias de assédio no trabalho</p>
-                </div>
-                
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="/" class="nav-link">Início</a></li>
-                        <li><a href="/cadastro" class="nav-link nav-button">Cadastrar</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <header class="header">
+        <div class="cadastro-area">
+            <p id="cadastro">Não tem conta? <a href="/cadastrar" id="cadastra-se">Cadastrar-se</a></p>
         </div>
-    </header>
+        </header>
     
-    <main class="container">
-        <div class="form-container">
-            <h1 class="form-title">Entrar na Plataforma</h1>
-            
-            {% if erro %}
-            <div class="error-message">
-                {{ erro }}
-            </div>
-            {% endif %}
-            
-            <form method="POST" action="/login">
-                <div class="form-group">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" id="email" name="email" class="form-input" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="senha" class="form-label">Senha:</label>
-                    <input type="password" id="senha" name="senha" class="form-input" required>
-                </div>
-                
-                <button type="submit" class="button" style="width: 100%;">Entrar</button>
-            </form>
-            
-            <div style="text-align: center; margin-top: 24px;">
-                <p style="color: #6C757D;">Não tem uma conta? <a href="/cadastro" class="text-link">Cadastre-se aqui</a></p>
-            </div>
-            
-            <a href="/" class="back-link">Voltar para página inicial</a>
-        </div>
-    </main>
+    <div class="balao-login">
+        <h2>Entrar</h2>
     
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>© 2025 S.A.R.A - Sistema de apoio e Registro de denúncias.</p>
-            </div>
-        </div>
-    </footer>
+        <form>
+            <label>Digite o seu email:</label>
+            <input type="email" placeholder="seuemail@gmail.com">
+    
+            <label>Digite a sua senha:</label>
+            <input type="password" placeholder="••••••••••">
+    
+            <button type="submit" class="entrar-botao">Entrar</button>
+            <a href="/" class="voltar">Voltar</a>
+        </form>
+    </div>
+</body>
+ 
 </body>
 </html>

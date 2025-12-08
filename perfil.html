@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>Perfil - SARA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='perfil.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header">
+    <h1 class="titulo">Meu Perfil</h1>
+</header>
+
+<main class="conteudo">
+
+    <section class="bloco-info">
+        <h2 class="subtitulo">Informações</h2>
+
+        <div class="info-caixa">
+            <p><strong>Nome:</strong> {{ usuario.nome }}</p>
+            <p><strong>Email:</strong> {{ usuario.email }}</p>
+            <p><strong>Área:</strong> {{ usuario.area }}</p>
+            <p><strong>Tipo:</strong> {{ usuario.tipo }}</p>
+        </div>
+    </section>
+
+    <section class="bloco-denuncias">
+        <h2 class="subtitulo">
+            {% if usuario.tipo == 'vitima' %}
+                Minhas Denúncias
+            {% else %}
+                Denúncias contra minha empresa
+            {% endif %}
+        </h2>
+
+        <div class="lista-denuncias">
+            {% for denuncia in denuncias %}
+            <div class="balao">
+                <h3 class="balao-titulo">{{ denuncia.titulo }}</h3>
+
+                <p><strong>Empresa:</strong> {{ denuncia.empresa }}</p>
+                <p><strong>Tipo:</strong> {{ denuncia.tipo }}</p>
+                <p><strong>Área:</strong> {{ denuncia.area_trabalho }}</p>
+                <p><strong>Apoios:</strong> {{ denuncia.apoios }}</p>
+
+                <div class="botoes-balao">
+
+                    {% if usuario.tipo == 'vitima' %}
+                    <form method="POST" action="/selecionar_editar" class="inline">
+                        <input type="hidden" name="denuncia_id" value="{{ denuncia.id }}">
+                        <button type="submit" class="btn-editar">Editar</button>
+                    </form>
+
+                    <a href="/deletar?id={{ denuncia.id }}" class="btn-deletar">
+                        Deletar
+                    </a>
+                    {% endif %}
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <a href="/" class="voltar">Voltar</a>
+
+</main>
+
+</body>
+</html>

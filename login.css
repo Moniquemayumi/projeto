@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(135deg, #ffffff,#f5f5f5,#aeadad);
+    background-size: 300% 300%;
+    animation: moveBg 15s ease infinite;
+    overflow-x: hidden;
+}
+@keyframes moveBg {
+     0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px;
+}
+#cadastro{
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #f0a348, #ae3e8c);
+    color: #fff !important;
+    border-radius: 100px;
+    font-size: 15px;
+    margin-left: auto;
+}
+#cadastra-se{
+    color: #ffffff;
+    text-decoration: #7c004f;
+}
+.cadastro-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: #7c004f;
+}
+
+.cadastro-botao {
+    padding: 8px 15px;
+    border-radius: 40px;
+    text-decoration: none;
+    background: linear-gradient(135deg, #f0a348, #ae3e8c);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.balao-login {
+    width: 420px;
+    margin: 50px auto;
+    padding: 50px 40px;
+    border-radius: 40px;
+    text-align: center;
+
+    background: linear-gradient(135deg, #f0a348, #ae3e8c);
+    color: #fff;
+}
+
+.balao-login h2 {
+    font-size: 45px;
+    margin-bottom: 35px;
+    font-family: 'Georgia', serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+label {
+    text-align: left;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+input {
+    padding: 16px;
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    width: 100%;
+}
+
+.entrar-botao {
+    margin-top: 25px;
+    padding: 14px;
+    width: 60%;
+    border-radius: 40px;
+    border: none;
+    background: white;
+    color: #333;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 16px;
+    align-self: center;
+}
+.voltar {
+    display: block;
+    text-align: center;
+    margin: 40px auto;
+    width: 200px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 40px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 700;
+    font-size: 16px;
+}

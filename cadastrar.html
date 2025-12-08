@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+ <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro.css') }}">
+</head>
+<body>
+    <a href="/login" class="voltar">Voltar</a>
+
+    <div class="balao-cadastro">
+        <h1>Cadastro</h1>
+
+        <form method="POST">
+            <label>Nome:</label>
+            <input type="text" name="nome">
+
+            <label>Email:</label>
+            <input type="email" name="email">
+
+            <label>Login:</label>
+            <input type="text" name="login">
+
+            <label>Senha:</label>
+            <input type="password" name="senha">
+
+            <label>Área:</label>
+            <select name="area">
+                <option value="tecnologia">Tecnologia</option>
+                <option value="juridico">Jurídico</option>
+                <option value="saude">Saúde</option>
+                <option value="educacao">Educação</option>
+                <option value="outro">Outro</option>
+            </select>
+
+            <label>Tipo:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="tipo" value="vitima"> Mulher Vítima</label>
+                <label><input type="radio" name="tipo" value="empresa"> Empresa</label>
+            </div>
+
+            <button type="submit" class="botao-cadastrar">Cadastrar</button>
+        </form>
+    </div>
+</body>
+
+</html>
+

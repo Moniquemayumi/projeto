@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(135deg, #ffffff,#f5f5f5,#aeadad);
+    background-size: 300% 300%;
+    animation: moveBg 15s ease infinite;
+    overflow-x: hidden;
+}
+@keyframes moveBg {
+     0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.header {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.titulo {
+    font-size: 48px;
+    font-weight: 800;
+    color: #7c004e;
+    font-family: 'Georgia', serif;
+}
+
+.conteudo {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.subtitulo {
+    font-size: 30px;
+    margin-bottom: 15px;
+    color: #7c004e;
+    font-weight: 700;
+}
+
+.bloco-info {
+    background: linear-gradient(135deg, #f0a348, #ae3e8c);
+    padding: 35px;
+    border-radius: 35px;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.info-caixa p {
+    font-size: 18px;
+    margin: 8px 0;
+}
+
+.bloco-denuncias {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 35px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.07);
+}
+
+.lista-denuncias {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.balao {
+    background: linear-gradient(135deg, #f0a348, #ae3e8c);
+    padding: 25px;
+    border-radius: 28px;
+    color: white;
+}
+
+.balao-titulo {
+    font-size: 26px;
+    margin-bottom: 12px;
+    font-family: 'Georgia', serif;
+}
+
+.botoes-balao {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn-editar,
+.btn-deletar {
+    padding: 10px 20px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-editar {
+    background: white;
+    color: #7c004e;
+}
+
+.btn-deletar {
+    background: #7c004e;
+    color: white;
+}
+
+.voltar {
+    display: block;
+    text-align: center;
+    margin: 40px auto;
+    width: 200px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f0a348, #ae3e8c);
+    border-radius: 40px;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+}

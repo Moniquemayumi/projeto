@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #f0a348,#70004e,#f0a348);
+    background-size: 300% 300%;
+    animation: moveBg 15s ease infinite;
+    overflow-x: hidden;
+    padding-bottom: 50px;
+}
+
+@keyframes moveBg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-top: 40px;
+    margin-bottom: 35px;
+    color: #ffffff;
+    font-family: 'Georgia', serif;
+}
+
+.formulario {
+    background: white;
+    padding: 40px;
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    border-radius: 35px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.08);
+}
+
+.campo {
+    margin-bottom: 25px;
+}
+
+label {
+    font-weight: 700;
+    color: #7c004e;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+select{
+    padding: 10px;
+    border-radius: 100px;
+}
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 18px;
+    border: 2px solid #ccc;
+    font-size: 17px;
+    font-family: inherit;
+}
+
+textarea {
+    height: 120px;
+}
+
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 40px;
+    background: #7c004e;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 18px;
+    width: 200px;
+    display: block;
+    margin: 20px auto 10px auto;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #f0a348;
+}
+
+.cancelar {
+    display: block;
+    text-align: center;
+    width: 200px;
+    padding: 14px;
+    background: linear-gradient(135deg, #f0a348, #ae3e8c);
+    border-radius: 40px;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 auto;
+}

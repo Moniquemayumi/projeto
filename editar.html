@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+ <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='editar.css') }}">
+</head>
+<body>
+
+    <h1>Editar Denúncia</h1>
+
+    <div class="formulario">
+        <form method="POST">
+
+            <div class="campo">
+                <label>Título:</label>
+                <input type="text" name="titulo" value="{{ denuncia.titulo }}">
+            </div>
+
+            <div class="campo">
+                <label>Descrição:</label>
+                <textarea name="descricao">{{ denuncia.descricao }}</textarea>
+            </div>
+
+            <div class="campo">
+                <label>Tipo:</label>
+                <input type="text" name="tipo" value="{{ denuncia.tipo }}">
+            </div>
+
+            <div class="campo">
+                <label>Empresa:</label>
+                <input type="text" name="empresa" value="{{ denuncia.empresa }}">
+            </div>
+
+            <div class="campo">
+                <label>Área de Trabalho:</label>
+                <input type="text" name="area_trabalho" value="{{ denuncia.area_trabalho }}">
+            </div>
+
+            <div class="heckbox">
+                <input type="checkbox" name="anonima" id="anonima">
+                <label for="anonima">Denúncia anônima</label>
+            </div>
+
+            <button type="submit">Salvar</button>
+            <a href="/perfil" class="cancelar">Cancelar</a>
+
+        </form>
+    </div>
+
+</body>
+</html>

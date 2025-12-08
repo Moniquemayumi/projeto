@@ -1,0 +1,278 @@
+* { 
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box; 
+}
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(135deg, #f0a348,#70004e,#f0a348);
+    color: #2b2b2b;
+    background-size: 300% 300%;
+    animation: moveBg 15s ease infinite;
+    overflow-x: hidden;
+}
+  @keyframes moveBg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+.header {
+    width: 100%;
+    padding: 20px 60px;
+    background: #fff;
+    border-bottom: 1px solid #e7e7e7;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.header-conteudo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-weight: 800;
+    font-size: 20px;
+    color: #70004e;
+    text-decoration: none;
+}
+.menu {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+.menu a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 500;
+    font-size: 15px;
+}
+.botao-perfil{
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #f0a348, #ae3e8c);
+    color: #fff !important;
+    border-radius: 100px;
+    font-size: 15px;
+    margin-left: auto;
+}
+.botao-login{
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #f0a348, #ae3e8c);
+    color: #fff !important;
+    border-radius: 100px;
+    font-size: 15px;
+    margin-left: auto;
+}
+.principal{
+    padding: 90px 60px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+.area-denuncia {
+    width: 50%;
+}
+
+.titulo-denunciar {
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.botao-denunciar {
+    background: #70004e;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.ranking {
+    width: 40%;
+    padding: 30px;
+    background: #f0a348;
+    border-radius: 14px;
+}
+
+.ranking-titulo {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #000000;
+    padding: auto;
+    height: 5vh;
+    border-radius: 14px;
+    background-color: #fff;
+}
+
+.ranking-empresas{
+    margin-left: 25px;
+    line-height: 1.7;
+    padding: auto;
+    border-radius: 14px;
+    background-color: #fff;
+    width: 95%;
+    height: auto;
+}
+
+.filtro-areas {
+    margin-top: 15px;
+    background: #70004e;
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.areas-botao {
+    display: none;
+    margin-top: 14px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px #0000001a;
+}
+
+.areas-botao.open {
+    display: block;
+}
+
+.areas-botao p {
+    padding: 6px 0;
+    border-bottom: 1px solid #efefef;
+}
+
+.bloco { 
+    padding: 70px 60px; 
+}
+.titulo {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 40px;
+    color: #fff;
+}
+
+.lista-denuncias {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+}
+
+.balao {
+    background: #fff;
+    padding: 25px;
+    border-radius: 30px;
+    box-shadow: 0px 3px 10px #00000014;
+}
+
+.balao-titulo { 
+    font-size: 22px; 
+    font-weight: 700; 
+    margin-bottom: 12px;
+ }
+.balao-texto p { 
+    margin-bottom: 8px; 
+}
+
+.botao-ver {
+    width: 100%;
+    padding: 12px;
+    background: #ae3e8c;
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.interacao {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.like, .comentar {
+    font-size: 20px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    color: #b40000;
+}
+
+.like { background: #ffe3f1; }
+.like:hover { background: #ffc4e1; }
+
+.comentar {
+    background: #fff3c8;
+    text-decoration: none;
+    color: #70004e;
+}
+.comentar:hover { 
+    background: #ffe3a0; 
+}
+
+
+.texto-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.stats {
+    padding: 70px 60px;
+    background: #fff;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.stats-caixa {
+    background: #fff;
+    padding: 25px;
+    border-radius: 30px;
+    box-shadow: 0px 3px 10px #00000014;
+    background: #fff;
+    height: 20%;
+    text-align: center;
+}
+
+.stats-num {
+    font-size: 36px;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+.titulo-sobre-nos{
+    color: #fff;
+}
+.sobre-nos {
+    text-align: center;
+    padding: 70px 60px;
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 1100px;
+    margin: auto;
+    color: #fff;
+}
+
+.footer {
+    text-align: center;
+    padding: 40px;
+    color: #ffffff;
+    font-weight: 500;
+}

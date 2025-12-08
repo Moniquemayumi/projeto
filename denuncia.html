@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>Denúncia - SARA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='denuncia.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1>{{ denuncia.titulo }}</h1>
+
+    <div class="balao-denuncia">
+        <p><strong>Empresa:</strong> {{ denuncia.empresa }}</p>
+        <p><strong>Tipo:</strong> {{ denuncia.tipo }}</p>
+        <p><strong>Área:</strong> {{ denuncia.area_trabalho }}</p>
+        <p><strong>Descrição:</strong></p>
+        <p>{{ denuncia.descricao }}</p>
+        <p><strong>Apoios:</strong> {{ denuncia.apoios }}</p>
+
+        {% if usuario %}
+            {% if usuario.tipo == 'vitima' %}
+                {% if ja_apoiou %}
+                    <a href="/apoio" class="botao-apoio">Remover apoio ({{ denuncia.apoios }})</a>
+                {% else %}
+                    <a href="/apoio" class="botao-apoio">Apoiar ({{ denuncia.apoios }})</a>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+
+    {% if usuario %}
+        {% if usuario.tipo == 'vitima' or empresa_da_denuncia %}
+            <div class="bloco-comentario">
+                <h3>Comentar</h3>
+                <form method="POST" action="/comentar">
+                    <textarea name="texto" placeholder="Digite seu comentário..."></textarea><br>
+
+                    {% if usuario.tipo == 'vitima' %}
+                        <label>
+                            <input type="checkbox" name="anonimo"> Comentário anônimo
+                        </label><br>
+                    {% endif %}
+
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <h3 style="text-align:center; margin-top:40px;">Comentários</h3>
+
+    <div class="comentarios">
+        {% for comentario in comentarios %}
+        <div class="comentario">
+            <p><strong>
+                {% if comentario.anonimo %}
+                    Anônimo
+                {% elif comentario.tipo_usuario == 'empresa' %}
+                    {{ denuncia.empresa }} (Empresa)
+                    {% if comentario.fixado %}- FIXADO{% endif %}
+                {% else %}
+                    Usuário
+                {% endif %}
+            </strong></p>
+
+            <p>{{ comentario.texto }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <a href="/" class="voltar">Voltar</a>
+
+</body>
+</html>
